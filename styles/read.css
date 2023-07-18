@@ -1,0 +1,74 @@
+.product {
+	width: 90%;
+	max-width: 80rem;
+	margin: 3rem auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.product-info {
+	display: flex;
+	gap: 3rem;
+	align-items: start;
+	margin: 2rem 0;
+}
+
+.product-img {
+	width: 25rem;
+}
+
+
+.product-detail {
+	flex: 1;
+}
+
+img {
+	width: 100%;
+	aspect-ratio: 1 / 1;
+	object-fit: contain;
+}
+
+.actions {
+	display: flex;
+	width: 100%;
+	gap: 4rem;
+
+}
+
+.actions form {
+	flex: 1;
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+
+.actions a {
+	flex: 1;
+	display: block;
+}
+
+.button {
+	width: 100%;
+	height: 3.5rem;
+	text-align: center;
+}
+
+.delete-button,
+.add-to-cart-btn {
+	background-color: rgb(255, 81, 81);
+}
+
+.delete-button:hover,
+.add-to-cart-btn:hover {
+	background-color: rgb(255, 30, 30);
+}
+
+.edit-button {
+	background-color: rgb(127, 75, 200);
+}
+
+.edit-button:hover {
+	background-color: rgb(101, 35, 193);
+}

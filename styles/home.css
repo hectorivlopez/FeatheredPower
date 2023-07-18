@@ -1,0 +1,173 @@
+/* ---------- Header ---------- */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (min-width: 1060px) {
+  .hero {
+    flex-direction: row;
+  }
+}
+
+.hero-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: calc(100vh - 6rem);
+
+}
+
+@media (min-width: 1060px) {
+    .hero-content {
+      min-height: none;
+    }
+}
+
+.hero-content p {
+  font-size: 1.7rem;
+  margin-top: 5rem;
+}
+
+.hero-image {
+  flex: 1;
+  text-align: center;
+}
+
+.hero-image img {
+  width: 80%;
+}
+
+
+/* ---------- Products ---------- */
+.products {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.products-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 25rem;
+  height: 17rem;
+
+  position: relative;
+  transform: translateY(-17rem);
+  transition: 1s all ease;
+
+  margin-bottom: 30px;
+
+	pointer-events: none;
+}
+
+@media (min-width: 480px) {
+  .products-item {
+    margin: 0;
+  }
+}
+
+.product-image {
+  height: 70%;
+  margin-bottom: 5%;
+  opacity: 0;
+  transition: 1s all ease;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1/1;
+  object-fit: contain;
+}
+
+.products-item p {
+  height: 25%;
+  color: white;
+  font-weight: 500;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.products-item-active {
+  transform: translateY(0);
+  opacity: 1;
+	pointer-events: all;
+}
+
+.products-item-active .product-image {
+  opacity: 1;
+}
+
+/* ---------- Description ---------- */
+
+section h2 {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-content {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 5rem;
+}
+
+@media (min-width: 768px) {
+  .section-content {
+    flex-direction: row;
+  }
+}
+
+.section-info {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.section-image {
+  flex: 1;
+}
+
+/* ---------- About us ---------- */
+.us-content {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+@media (min-width: 1060px) {
+  .us-content {
+    flex-direction: row;
+  }
+}
+
+.us-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.us-item-heading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.us-icon {
+  width: 4rem;
+  height: 4rem;
+}
+
+.us-item-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

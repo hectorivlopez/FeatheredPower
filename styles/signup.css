@@ -1,0 +1,65 @@
+.heading {
+	margin: 1rem 0;
+}
+
+.actions {
+	display: flex;
+	margin-top: 1rem;
+}
+
+.signup-form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 1rem;
+	align-items: center;
+	/* background: rgb(29, 34, 50); */
+	background-color: rgb(51, 51, 51);
+	width: 90%;
+	margin: auto;
+	padding: 4rem 2rem;
+	/*   border-radius: 1rem; */
+	margin: 3rem auto;
+}
+
+@media (min-width: 480px) {
+	.signup-form {
+		padding: 5rem 8rem;
+	}
+}
+
+.logo-signup {
+	width: 5rem;
+	margin-bottom: 3rem;
+}
+
+.signup-form h3 {
+	font-weight: 300;
+}
+
+.signup-fields {
+	display: flex;
+	flex-direction: column;
+	gap: 0;
+	width: 100%;
+}
+
+@media (min-width: 768px) {
+	.signup-fields {
+		flex-direction: row;
+		gap: 5rem;
+	}
+}
+
+.section-fields {
+	flex: 1;
+}
+
+.success-card {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	gap: 2rem;
+	margin-top: 8rem;
+}

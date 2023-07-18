@@ -1,0 +1,22 @@
+.heading {
+	margin-top: 1rem;
+}
+
+.actions  {
+	display: flex;
+	margin-top: 1rem;
+}
+
+.create-form {
+	margin: 3rem auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 1rem;
+	align-items: center;
+	width: 90%;
+	max-width: 150rem;
+/* 	padding: 4rem 3rem; */
+
+}
+
