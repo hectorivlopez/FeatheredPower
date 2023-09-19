@@ -1,5 +1,5 @@
 const payCartBtn = document.querySelector('#payCartBtn')
-if(payCartBtn) {
+if (payCartBtn) {
 	payCartBtn.addEventListener('click', payCart)
 }
 
@@ -13,9 +13,9 @@ function payCart(e) {
 				method: 'POST',
 				body: JSON.stringify(data)
 			})
-			.then(response => {
-				window.location.href = '/cart.php?result=1';
-			})
-			
+				.then(response => {
+					window.location.href = '/cart.php?result=1';
+				})
+
 		})
 }

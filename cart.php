@@ -35,6 +35,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $query = "SELECT * FROM cart WHERE userId = '$userId'";
 $cartResult = mysqli_query($db, $query);
 $total = 0;
+
+/* echo '<pre>';
+var_dump(mysqli_fetch_assoc($cartResult));
+echo '</pre>'; */
+
 ?>
 
 <?php
