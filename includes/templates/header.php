@@ -1,5 +1,6 @@
 <!-- --------------- Start session --------------- -->
 <?php
+$webdavRoute = 'login.php';
 $rol = 'visitor';
 
 if (!isset($_SESSION)) {
@@ -90,8 +91,9 @@ if ($login) {
 				<a href="/products.php">Productos</a>
 				<a href="/location.php">Ubicación</a>
 				<?php if ($login) : ?>
-					<a href="/cart.php" class="cart-link">Carrito</a>
-					<a href="/logout.php" class="logout">Cerrar sesión</a>
+					<a href="/cart.php">Carrito</a>
+					<a href="<?php echo $webdavRoute ?>">Mis Pedidos</a>
+					<a href="/logout.php">Cerrar sesión</a>
 				<?php endif ?>
 			</div>
 		</nav> <!-- ---------- .Navbar ---------- -->
@@ -99,7 +101,7 @@ if ($login) {
 		<div class="account-menu-container container">
 			<div class="account-menu">
 				<?php if (!$login) : ?>
-					<a class="login-link" href="/login.php">Iniciar sesión</a>
+					<a class="login-link" href="/login.php">Iniciar Sesión</a>
 					<a href="/signup.php">Registrarse</a>
 				<?php endif ?>
 
@@ -115,7 +117,7 @@ if ($login) {
 						</div>
 					</div>
 
-					
+
 					<?php if ($rol != 'admin') :
 						$userId = $actualUser['id'];
 						$query = "SELECT * FROM cart WHERE userId = '$userId'";
@@ -131,8 +133,20 @@ if ($login) {
 								<p class="cart-notf"><?php echo $productsInCart ?></p>
 							<?php endif ?>
 						</div>
+
+						<form action="/webdav/index.php" method="POST">
+							<input type="hidden" name="id" value="<?php echo $actualUser['id'] ?>">
+							<input type="hidden" name="firstName" value="<?php echo $actualUser['firstName'] ?>">
+							<input type="hidden" name="lastName" value="<?php echo $actualUser['lastName'] ?>">
+							<input type="hidden" name="email" value="<?php echo $actualUser['email'] ?>">
+							<input type="submit" value="Mis Pedidos">
+
+
+						</form>
+
+						<!-- <a href="<?php echo $webdavRoute ?>">Mis Pedidos</a> -->
 					<?php endif ?>
-					<a href="/logout.php" class="logout">Cerrar sesión</a>
+					<a href="/logout.php" class="logout">Cerrar Sesión</a>
 				<?php endif ?>
 			</div>
 		</div> <!-- ---------- .Account menu ---------- -->
@@ -159,3 +173,4 @@ if ($login) {
 	</header>
 
 	<div class="content-wrapper">
+		
