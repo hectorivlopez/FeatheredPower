@@ -1,20 +1,28 @@
 <?php
 
 use PHPMailer\PHPMailer\PHPMailer;
-use Dompdf\Dompdf;
-use Dompdf\Options;
+/* use Dompdf\Dompdf;
+use Dompdf\Options; */
 
 require "../vendor/autoload.php";
 
 if (isset($_POST)) {
 	include('../includes/config/database.php');
 
-	$data = file_get_contents('php://input');
+	$userId = $_POST['userId'];
+	$query = "SELECT * FROM users WHERE id = '$userId'";
+	$result = mysqli_query($db, $query);
+	$user = mysqli_fetch_assoc($result);
+
+	$query = "SELECT * FROM cart WHERE userId = '$userId'";
+	$result = mysqli_query($db, $query);
+
+	/* $data = file_get_contents('php://input');
 	$dataDecoded = json_decode($data, true);
 	$user = $dataDecoded['user'];
-	$cart = $dataDecoded['cart'];
+	$cart = $dataDecoded['cart']; */
 
-	include('pdf.php');
+	/* include('pdf.php');
 
 
 	$options = new Options();
@@ -25,10 +33,10 @@ if (isset($_POST)) {
 	$dompdf->loadHtml($html);
 	$dompdf->render();
 	$dompdf->stream('document.pdf', array('Attachment' => 0));
-	$pdfOutput = $dompdf->output();
+	$pdfOutput = $dompdf->output(); */
 
+	/* --------------- Create a pdf --------------- */
 	require 'fpdf/fpdf.php';
-
 
 	$pdf = new FPDF();
 	$pdf->AddPage();
@@ -41,7 +49,6 @@ if (isset($_POST)) {
 	$pdf->SetTextColor(0, 0, 0);
 	$pdf->SetFont('Arial', 'B', 10);
 
-
 	$pdf->Cell(100, 7, "Producto", 1, 0, 'L', 0);
 	$pdf->Cell(20, 7, "Cantidad", 1, 0, 'L', 0);
 	$pdf->Cell(35, 7, "Precio", 1, 0, 'L', 0);
@@ -49,7 +56,7 @@ if (isset($_POST)) {
 
 	//$pdf->Cell('w','h','txt','border','ln','align','fill','link')
 
-	foreach ($cart as $product) {
+	while ($product = mysqli_fetch_assoc($result)) {
 		$image = "../productsImg/{$product['productImage']}";
 		$productImage = "data:image/png;base64," . base64_encode(file_get_contents($image));
 
@@ -59,13 +66,14 @@ if (isset($_POST)) {
 		$pdf->Cell(20, 7, $product['amount'], 1, 0, 'L', 0);
 		$pdf->Cell(35, 7, $product['productPrice'], 1, 0, 'L', 0);
 		$pdf->Cell(34.8, 7, $subtotal, 1, 1, 'L', 0);
-
 	}
 
-	$pdfdoc = $pdf->Output('', 'S');
+	$pdfdoc = $pdf->Output('S', '');
 
+	/* --------------- Save pdf in WebDav --------------- */
+	// $pdf->Output('F', 'pdfs/cosa.pdf');
 
-	/* Create a PHPMailer instance */
+	/* --------------- Create a PHPMailer instance --------------- */
 	$mail = new PHPMailer();
 
 	/* SMTP settings */
@@ -97,6 +105,5 @@ if (isset($_POST)) {
 	} else {
 		header('location: /cart.php?result=2');
 	}
-
 	$mail->ClearAddresses();
 }

@@ -1,4 +1,4 @@
-const payCartBtn = document.querySelector('#payCartBtn')
+/* const payCartBtn = document.querySelector('#payCartBtn')
 if (payCartBtn) {
 	payCartBtn.addEventListener('click', payCart)
 }
@@ -18,4 +18,4 @@ function payCart(e) {
 				})
 
 		})
-}
+} */
