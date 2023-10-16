@@ -5,12 +5,40 @@ $webdavRoute = './';
 $rol = 'visitor';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-	$id = $_POST['id'];
-	$firstName = $_POST['firstName'];
-	$lastName = $_POST['lastName'];
-	$email = $_POST['email'];
-	$initials = strtoupper($firstName[0] . $lastName[0]);
+	session_start();
+
+	$_SESSION['id'] = $_POST['id'];
+	$_SESSION['firstName'] = $_POST['firstName'];
+	$_SESSION['lastName'] = $_POST['lastName'];
+	$_SESSION['email'] = $_POST['email'];
 }
+
+if (!isset($_SESSION)) {
+	session_start();
+}
+
+$id = $_SESSION['id'];
+$firstName = $_SESSION['firstName'];
+$lastName = $_SESSION['lastName'];
+$email = $_SESSION['email'];
+$initials = strtoupper($firstName[0] . $lastName[0]);
+
+
+
+
+
+/* Get user orders pdfs */
+$folderPath = './';
+$files = scandir($folderPath);
+$prefix = 'id' . $id . '_';
+$filteredFiles = [];
+
+foreach ($files as $file) {
+	if (strpos($file, $prefix) === 0) {
+		$filteredFiles[] = $file;
+	}
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -88,6 +116,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	<div class="content-wrapper">
 		<!-- Content -->
+		<div class="container">
+			<?php foreach ($filteredFiles as $file) :
+				$pdfInfo = explode('_', $file);
+			?>
+				<div class="card pdf-card">
+					<h3>ID: <?php echo $pdfInfo[1] ?></h3>
+					<h3>Fecha: <?php echo $pdfInfo[2] ?></h3>
+
+					<a href="viewpdf.php?pdf=<?php echo $file ?>" target="_blank" class="button blue-button">Ver PDF</a>
+
+				</div>
+			<?php endforeach ?>
+		</div>
 	</div>
 
 	<footer>

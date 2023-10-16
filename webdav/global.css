@@ -619,3 +619,17 @@ select:focus {
 .hidden {
 	display: none;
 }
+
+.pdf-card {
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	margin-top: 4rem;
+	margin-bottom: 4rem;
+}
+
+.pdf-card a {
+	width: 100%;
+	margin-top: 3rem;
+	width: 30rem;
+}

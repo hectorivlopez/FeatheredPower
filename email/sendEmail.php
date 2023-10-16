@@ -72,11 +72,22 @@ if (isset($_POST)) {
 
 	/* --------------- Save pdf in WebDav --------------- */
 	// $pdf->Output('F', 'pdfs/cosa.pdf');
+	date_default_timezone_set('America/Mexico_City');
+	$pdfFolder = '../webdav/';
+	$pdfName = 'id'.  $userId . '_' . $user['orders'] . '_' . date('d-m-Y') . '_' . date('h-i-s') . '.pdf';
+	$pdf->Output('F', $pdfFolder . $pdfName);
+
+	$orders = $user['orders'] + 1;
+	$query = "UPDATE users SET orders = '$orders' WHERE id = '$userId'";
+	$result = mysqli_query($db, $query);
+
+	header('location: /cart.php?result=1');
+
 
 	/* --------------- Create a PHPMailer instance --------------- */
-	$mail = new PHPMailer();
+	/* $mail = new PHPMailer();
 
-	/* SMTP settings */
+	// SMTP settings 
 	$mail->isSMTP();
 	$mail->Host = 'smtp.gmail.com';
 	$mail->SMTPAuth = true;
@@ -85,12 +96,12 @@ if (isset($_POST)) {
 	$mail->Password = 'bsgbrkbkkawdsjih';
 	$mail->SMTPSecure = 'ssl';
 
-	/* Mail content settings */
+	//Mail content settings 
 	$mail->setFrom('FeatheredPower');
 	$mail->addAddress("{$user['email']}");
 	$mail->Subject = 'Detalles de la compra';
 
-	/* Enable HTML */
+	// Enable HTML 
 	$mail->isHTML(true);
 	$mail->CharSet = 'UTF-8';
 
@@ -99,11 +110,11 @@ if (isset($_POST)) {
 	//$mail->addStringAttachment($pdfOutput, 'document.pdf');
 	$mail->addStringAttachment($pdfdoc, 'document.pdf');
 
-	/* Send email */
+	// Send email 
 	if ($mail->send()) {
 		header('location: /cart.php?result=1');
 	} else {
 		header('location: /cart.php?result=2');
 	}
-	$mail->ClearAddresses();
+	$mail->ClearAddresses(); */
 }
