@@ -72,7 +72,7 @@ if (isset($_POST)) {
 	// Generate unique pdf name
 	date_default_timezone_set('America/Mexico_City');
 	$pdfFolder = __DIR__ . '/pdfs/';
-	
+
 	$pdfName = 'id' .  $userId . '_' . $user['orders'] . '_' . date('d-m-Y') . '_' . date('h-i-s') . '.pdf';
 
 	// Save pdf in folder
@@ -87,7 +87,8 @@ if (isset($_POST)) {
 	$webdavUser = 'hector';
 	$webdavPassword = '12';
 	$destinationFilename = $pdfName; // Name of the file on the WebDAV server
-
+ */
+	/* // Method 1
 	// Initialize cURL
 	$ch = curl_init();
 
@@ -132,6 +133,36 @@ if (isset($_POST)) {
 		} else {
 			echo 'File moved to WebDAV server successfully.';
 		}
+	} */
+
+	/* // Method 2
+	// Establish an FTP connection
+	$ftpConnection = ftp_connect($ftpServer);
+
+	// Log in to the FTP server
+	if (ftp_login($ftpConnection, $ftpUser, $ftpPassword)) {
+		$localFile = $pdfFolder . $pdfName;
+
+		// Upload the file to the FTP server
+		if (ftp_put($ftpConnection, $destinationFilename, $localFile, FTP_BINARY)) {
+			// Notify the WebDAV server to move the file
+			$webdavMoveURL = $webdavServerURL . $destinationFilename;
+			file_get_contents($webdavMoveURL, false, stream_context_create([
+				'http' => [
+					'method' => 'MOVE',
+					'header' => 'Destination: ' . $webdavMoveURL,
+				]
+			]));
+
+			echo 'File transferred and moved successfully.';
+		} else {
+			echo 'FTP file upload failed.';
+		}
+
+		// Close the FTP connection
+		ftp_close($ftpConnection);
+	} else {
+		echo 'FTP login failed.';
 	}
 
 	exit; */
@@ -139,8 +170,8 @@ if (isset($_POST)) {
 	// ----- Saving directly in WebDAV -----
 	/* // Parameters
 	$webdavUrl = 'webdav server'; // Replace with your WebDAV server URL
-	$username = 'username'; // Replace with your WebDAV username
-	$password = 'password'; // Replace with your WebDAV password
+	$username = 'hector'; // Replace with your WebDAV username
+	$password = '12'; // Replace with your WebDAV password
 
 	// PDF content
 	$pdfContent = $pdfdoc;
