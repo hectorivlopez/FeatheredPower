@@ -87,6 +87,7 @@ include('../../includes/templates/header.php');
 				<th>Compañía</th>
 				<th>Correo</th>
 				<th>Contraseña</th>
+				<th>Pedidos</th>
 			</tr>
 		</thead>
 
@@ -102,6 +103,7 @@ include('../../includes/templates/header.php');
 					<td><?php echo $row['company'] ?></td>
 					<td><?php echo $row['email'] ?></td>
 					<td><?php echo $row['pass'] ?></td>
+					<td><?php echo $row['orders'] ?></td>
 					<td>
 						<div class=" item-actions">
 							<button type="button" class="button red-button" onclick="deleteAlert(<?php echo $row['id'] ?>)">Eliminar</button>

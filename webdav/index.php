@@ -1,20 +1,20 @@
 <!-- --------------- Start session --------------- -->
 <?php
-$rootRoute = '';
+$rootRoute = 'http://localhost:3000';
 $webdavRoute = './';
 $rol = 'visitor';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-	session_start();
-
-	$_SESSION['id'] = $_POST['id'];
-	$_SESSION['firstName'] = $_POST['firstName'];
-	$_SESSION['lastName'] = $_POST['lastName'];
-	$_SESSION['email'] = $_POST['email'];
-}
-
 if (!isset($_SESSION)) {
 	session_start();
+}
+
+if (isset($_GET['id'])) {
+	$_SESSION['id'] = $_GET['id'];
+	$_SESSION['firstName'] = $_GET['firstName'];
+	$_SESSION['lastName'] = $_GET['lastName'];
+	$_SESSION['email'] = $_GET['email'];
+
+	header('Location: /webdav');
 }
 
 $id = $_SESSION['id'];
@@ -22,9 +22,6 @@ $firstName = $_SESSION['firstName'];
 $lastName = $_SESSION['lastName'];
 $email = $_SESSION['email'];
 $initials = strtoupper($firstName[0] . $lastName[0]);
-
-
-
 
 
 /* Get user orders pdfs */
@@ -38,7 +35,6 @@ foreach ($files as $file) {
 		$filteredFiles[] = $file;
 	}
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -52,8 +48,8 @@ foreach ($files as $file) {
 	<title>FeatherPower</title>
 	<link rel="shortcut icon" href="./img/logo-icon.png">
 
-	<link rel="preload" href="/styles/normalize.css" as="style">
-	<link rel="stylesheet" href="/styles/normalize.css">
+	<link rel="preload" href="./styles/normalize.css" as="style">
+	<link rel="stylesheet" href="./styles/normalize.css">
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -67,7 +63,7 @@ foreach ($files as $file) {
 		<!-- ------------------------------ Navbar ------------------------------ -->
 		<nav class="navbar container">
 			<a class="logo" href="<?php echo $rootRoute ?>/">
-				<img src="/img/logo.png" alt="Logo image">
+				<img src="./img/logo.png" alt="Logo image">
 				<span>Feathered</span>Power
 			</a>
 			<!-- -------------------- Navigation -------------------- -->
@@ -125,7 +121,6 @@ foreach ($files as $file) {
 					<h3>Fecha: <?php echo $pdfInfo[2] ?></h3>
 
 					<a href="viewpdf.php?pdf=<?php echo $file ?>" target="_blank" class="button blue-button">Ver PDF</a>
-
 				</div>
 			<?php endforeach ?>
 		</div>
@@ -134,33 +129,32 @@ foreach ($files as $file) {
 	<footer>
 		<div class="footer-section">
 			<div class="footer-field">
-				<a class="media-link"><img class="icon" src="/img/instagram-icon.png" alt="Instagram icon"> featherpower</a>
-				<a class="media-link"><img class="icon" src="/img/facebook-icon.png" alt="Facebook icon"> FeatherPower</a>
-				<a class="media-link"><img class="icon" src="/img/linkedin-icon.png" alt="Linkedin icon"> featherpower</a>
+				<a class="media-link"><img class="icon" src="./img/instagram-icon.png" alt="Instagram icon"> featherpower</a>
+				<a class="media-link"><img class="icon" src="./img/facebook-icon.png" alt="Facebook icon"> FeatherPower</a>
+				<a class="media-link"><img class="icon" src="./img/linkedin-icon.png" alt="Linkedin icon"> featherpower</a>
 			</div>
 		</div>
 		<div class="footer-section">
 			<div class="footer-field">
-				<div class="media-link"><img class="icon" src="/img/email-icon.png" alt="Email-icon">featherpower@quetzal.com
+				<div class="media-link"><img class="icon" src="./img/email-icon.png" alt="Email-icon">featherpower@quetzal.com
 				</div>
-				<div class="media-link"><img class="icon" src="/img/phone-icon.png" alt="Phone icon">3314891645</div>
-				<div class="media-link"><img class="icon" src="/img/phone-icon.png" alt="Phone icon">3336095985</div>
+				<div class="media-link"><img class="icon" src="./img/phone-icon.png" alt="Phone icon">3314891645</div>
+				<div class="media-link"><img class="icon" src="./img/phone-icon.png" alt="Phone icon">3336095985</div>
 			</div>
 		</div>
 		<div class="footer-section">
 			<div class="footer-field">
-				<div class="media-link"><img class="icon" src="/img/location-icon.png" alt="Location icon">Guadalajara, México
+				<div class="media-link"><img class="icon" src="./img/location-icon.png" alt="Location icon">Guadalajara, México
 				</div>
-				<div class="media-link"><img class="icon" src="/img/location-icon.png" alt="Location icon">Río de Janeiro,
+				<div class="media-link"><img class="icon" src="./img/location-icon.png" alt="Location icon">Río de Janeiro,
 					Brasil
 				</div>
-				<div class="media-link"><img class="icon" src="/img/location-icon.png" alt="Location icon">Medellín, Colombia
+				<div class="media-link"><img class="icon" src="./img/location-icon.png" alt="Location icon">Medellín, Colombia
 				</div>
 			</div>
 		</div>
 	</footer>
-	<script src="/js/app.js"></script>
-	<script src="/js/data.js"></script>
+	<script src="./app.js"></script>
 </body>
 
 </html>

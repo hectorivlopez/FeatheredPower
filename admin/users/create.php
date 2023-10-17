@@ -70,7 +70,7 @@ if (isset($_POST['submit'])) {
 			$wrongInputs[] = 'email';
 		} else {
 			/* ---------- SQL Query ---------- */
-			$query = "INSERT INTO users (firstName, lastName, company, email, pass) VALUES('$firstName', '$lastName', '$company', '$email', '$pass')";
+			$query = "INSERT INTO users (firstName, lastName, company, email, pass, orders) VALUES('$firstName', '$lastName', '$company', '$email', '$pass', 0)";
 			$result = mysqli_query($db, $query);
 
 			$query = "SELECT MAX(id) FROM users";

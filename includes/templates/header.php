@@ -1,6 +1,6 @@
 <!-- --------------- Start session --------------- -->
 <?php
-$webdavRoute = 'login.php';
+$webdavRoute = 'http://localhost/webdav';
 $rol = 'visitor';
 
 if (!isset($_SESSION)) {
@@ -133,15 +133,14 @@ if ($login) {
 								<p class="cart-notf"><?php echo $productsInCart ?></p>
 							<?php endif ?>
 						</div>
+						<!-- <a href="<?php echo $webdavRoute ?>?cosa=3">Mis pedidos</a> -->
 
-						<form action="/webdav/index.php" method="POST">
+						<form action="<?php echo $webdavRoute ?>" method="GET">
 							<input type="hidden" name="id" value="<?php echo $actualUser['id'] ?>">
 							<input type="hidden" name="firstName" value="<?php echo $actualUser['firstName'] ?>">
 							<input type="hidden" name="lastName" value="<?php echo $actualUser['lastName'] ?>">
 							<input type="hidden" name="email" value="<?php echo $actualUser['email'] ?>">
 							<input type="submit" value="Mis Pedidos">
-
-
 						</form>
 
 						<!-- <a href="<?php echo $webdavRoute ?>">Mis Pedidos</a> -->
@@ -173,4 +172,3 @@ if ($login) {
 	</header>
 
 	<div class="content-wrapper">
-		
