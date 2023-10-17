@@ -1,6 +1,6 @@
 <!-- --------------- Start session --------------- -->
 <?php
-$rootRoute = 'http://localhost:3000';
+$rootRoute = 'http://10.0.0.2';
 $webdavRoute = './';
 $rol = 'visitor';
 
@@ -14,8 +14,8 @@ if (isset($_GET['id'])) {
 	$_SESSION['lastName'] = $_GET['lastName'];
 	$_SESSION['email'] = $_GET['email'];
 
-	header('Location: /webdav');
-}
+	header('Location: /');
+} 
 
 $id = $_SESSION['id'];
 $firstName = $_SESSION['firstName'];
@@ -25,7 +25,7 @@ $initials = strtoupper($firstName[0] . $lastName[0]);
 
 
 /* Get user orders pdfs */
-$folderPath = './';
+$folderPath = './pdfs/';
 $files = scandir($folderPath);
 $prefix = 'id' . $id . '_';
 $filteredFiles = [];
@@ -45,7 +45,7 @@ foreach ($files as $file) {
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<title>FeatherPower</title>
+	<title>FeatheredPower</title>
 	<link rel="shortcut icon" href="./img/logo-icon.png">
 
 	<link rel="preload" href="./styles/normalize.css" as="style">

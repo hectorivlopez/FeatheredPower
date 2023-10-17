@@ -1,6 +1,6 @@
 <!-- --------------- Start session --------------- -->
 <?php
-$webdavRoute = 'http://localhost/webdav';
+$webdavRoute = 'http://10.0.0.5/';
 $rol = 'visitor';
 
 if (!isset($_SESSION)) {
@@ -26,7 +26,7 @@ if ($login) {
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<title>FeatherPower</title>
+	<title>FeatheredPower</title>
 	<link rel="shortcut icon" href="./img/logo-icon.png">
 
 	<link rel="preload" href="/styles/normalize.css" as="style">

@@ -1,0 +1,10 @@
+1. Crear carpeta pdfs en WebDAV y darle los permisos
+
+2. Instalar el módulo de php en WebDAV
+		apt-get purge php7.4-common
+		apt-get install libapache2-mod-php7.4
+		a2enmod php7.4
+
+3. Agregar DNS para WebDAV
+
+4. Cambiar php.ini para imagenes

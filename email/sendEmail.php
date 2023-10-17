@@ -72,21 +72,20 @@ if (isset($_POST)) {
 	// Generate unique pdf name
 	date_default_timezone_set('America/Mexico_City');
 	$pdfFolder = __DIR__ . '/pdfs/';
-
 	$pdfName = 'id' .  $userId . '_' . $user['orders'] . '_' . date('d-m-Y') . '_' . date('h-i-s') . '.pdf';
 
 	// Save pdf in folder
 	$pdf->Output('F', $pdfFolder . $pdfName);
 
 	/* // Parameters
-	$httpFileURL = 'http://www.featheredpower.com/email/pdfs/' . $pdfName; // URL to the HTTP server file
-	$ftpServer = 'ftp://your-ftp-server.com/';
+	$httpFileURL = '' . $pdfName; 
+	$ftpServer = '';
 	$ftpUser = 'user1';
 	$ftpPassword = '12';
-	$webdavServerURL = 'http://your-webdav-server.com/webdav/';
+	$webdavServerURL = '';
 	$webdavUser = 'hector';
 	$webdavPassword = '12';
-	$destinationFilename = $pdfName; // Name of the file on the WebDAV server
+	$destinationFilename = $pdfName; 
  */
 	/* // Method 1
 	// Initialize cURL
@@ -120,7 +119,7 @@ if (isset($_POST)) {
 		curl_setopt($ch2, CURLOPT_CUSTOMREQUEST, 'MOVE');
 		curl_setopt($ch2, CURLOPT_POSTFIELDS, '');
 
-		// Provide WebDAV server authentication (replace 'username' and 'password' with actual credentials)
+		// WebDAV server authentication 
 		curl_setopt($ch2, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
 		curl_setopt($ch2, CURLOPT_USERPWD, "$webdavUser:$webdavPassword");
 
@@ -168,28 +167,38 @@ if (isset($_POST)) {
 	exit; */
 
 	// ----- Saving directly in WebDAV -----
-	/* // Parameters
-	$webdavUrl = 'webdav server'; // Replace with your WebDAV server URL
-	$username = 'hector'; // Replace with your WebDAV username
-	$password = '12'; // Replace with your WebDAV password
+	// Initialize cURL session
+	$localFilePath = $pdfFolder . $pdfName; 
+	$webdavServerURL = "http://10.0.0.5/pdfs/$pdfName"; 
+	$username = 'hector';
+	$password = '12';
 
-	// PDF content
-	$pdfContent = $pdfdoc;
+	// Initialize cURL session
+	$ch = curl_init();
 
-	// Create the context for the PUT request
-	$context = stream_context_create([
-		'http' => [
-			'method' => 'PUT',
-			'header' => "Authorization: Basic " . base64_encode("$username:$password"),
-			'content' => $pdfContent
-		],
-	]);
+	// Set cURL options
+	curl_setopt($ch, CURLOPT_URL, $webdavServerURL);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
+	curl_setopt($ch, CURLOPT_UPLOAD, 1);
+	curl_setopt($ch, CURLOPT_INFILE, fopen($localFilePath, 'rb'));
+	curl_setopt($ch, CURLOPT_INFILESIZE, filesize($localFilePath));
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
 
-	// Send the PDF to the WebDAV server
-	$webdavFile = $webdavUrl . 'newfile.pdf'; // The name you want for the PDF file on the WebDAV server
-	file_put_contents($webdavFile, null, 0, $context);
+	// Execute cURL request
+	$result = curl_exec($ch);
 
-	exit; */
+	// Check for errors
+	if ($result === false) {
+		echo 'cURL error: ' . curl_error($ch);
+	} else {
+		echo 'File uploaded or overwritten successfully.';
+	}
+
+	// Close cURL session
+	curl_close($ch);
+	
+	unlink($pdfFolder . $pdfName);
 
 	// Increment user orders 
 	$orders = $user['orders'] + 1;
