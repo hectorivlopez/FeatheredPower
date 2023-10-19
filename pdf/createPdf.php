@@ -1,6 +1,6 @@
 <?php
 
-use PHPMailer\PHPMailer\PHPMailer;
+/* use PHPMailer\PHPMailer\PHPMailer; */
 /* use Dompdf\Dompdf;
 use Dompdf\Options; */
 
@@ -69,16 +69,16 @@ if (isset($_POST)) {
 	/* --------------- Save pdf in WebDAV --------------- */
 	// Generate unique pdf name
 	date_default_timezone_set('America/Mexico_City');
-	$pdfFolder = __DIR__ . '/pdfs/';
+	$pdfFolder = __DIR__ . '/tmp_files/';
 	$pdfName = 'id' .  $userId . '_' . $user['orders'] . '_' . date('d-m-Y') . '_' . date('h-i-s') . '.pdf';
 
 	// Save pdf in folder
 	$pdf->Output('F', $pdfFolder . $pdfName);
 
 	// ----- Saving directly in WebDAV -----
-	// Parameters
+	/* // Parameters
 	$localFilePath = $pdfFolder . $pdfName;
-	$webdavUrl = "http://10.0.0.5/pdfs/$pdfName";
+	$webdavUrl = "http://10.0.0.5/tmp_files/$pdfName";
 	$username = 'hector';
 	$password = '12';
 
@@ -106,6 +106,12 @@ if (isset($_POST)) {
 
 	// Close curl session
 	curl_close($ch);
+
+	unlink($pdfFolder . $pdfName); */
+	// Mac
+	//shell_exec("bash ./savePdfScript.sh");
+	// Debian
+	shell_exec("bash ./savePdfScript");
 
 	unlink($pdfFolder . $pdfName);
 
@@ -174,38 +180,5 @@ if (isset($_POST)) {
 		}
 	} */
 
-
-	/* --------------- Send email using PHPMailer --------------- */
-	/* $mail = new PHPMailer();
-
-	// SMTP settings 
-	$mail->isSMTP();
-	$mail->Host = 'smtp.gmail.com';
-	$mail->SMTPAuth = true;
-	$mail->Port = 465;
-	$mail->Username = 'featheredpower@gmail.com';
-	$mail->Password = 'bsgbrkbkkawdsjih';
-	$mail->SMTPSecure = 'ssl';
-
-	//Mail content settings 
-	$mail->setFrom('FeatheredPower');
-	$mail->addAddress("{$user['email']}");
-	$mail->Subject = 'Detalles de la compra';
-
-	// Enable HTML 
-	$mail->isHTML(true);
-	$mail->CharSet = 'UTF-8';
-
-
-	$mail->Body = '<html></html>';
-	//$mail->addStringAttachment($pdfOutput, 'document.pdf');
-	$mail->addStringAttachment($pdfdoc, 'document.pdf');
-
-	// Send email 
-	if ($mail->send()) {
-		header('location: /cart.php?result=1');
-	} else {
-		header('location: /cart.php?result=2');
-	}
-	$mail->ClearAddresses(); */
+	include 'sendEmail.php';
 }

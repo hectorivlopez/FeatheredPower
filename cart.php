@@ -99,7 +99,7 @@ include('includes/templates/header.php');
 			<?php endwhile ?>
 		</div>
 
-		<form class="cart-summary" id="cart-summary" action="/email/sendEmail.php" method="POST">
+		<form class="cart-summary" id="cart-summary" action="/pdf/createPdf.php" method="POST">
 			<h2>Total: $ <?php echo $total ?> </h2>
 			<input type="hidden" name="userId" value="<?php echo $userId ?>">
 			<button class="button green-button <?php echo !$total ? 'hidden' : '' ?>" id="payCartBtn" type="submit">Proceder al pago</button>
