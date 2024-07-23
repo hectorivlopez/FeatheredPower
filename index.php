@@ -1,4 +1,4 @@
-	<?php
+<?php
 	$actual = 'home';
 	$actualRoot = './';
 	include('includes/templates/header.php'); ?>

@@ -1,9 +1,8 @@
-<!-- --------------- Start session --------------- -->
 <?php
 $webdavRoute = 'http://10.0.0.5/';
 $rol = 'visitor';
 
-if (!isset($_SESSION)) {
+if (!isset($_SESSION) && $actual != 'login' && $actual != 'signup') {
 	session_start();
 }
 
